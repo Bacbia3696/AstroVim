@@ -6,12 +6,22 @@ local plugins = {
       "tpope/vim-repeat", -- repeat command
       "tpope/vim-unimpaired", -- cool hotkey
       "tpope/vim-surround", -- select surround
-      "tpope/vim-fugitive", -- git intergration
       "metakirby5/codi.vim", -- interactive environment for coding
       "jpalardy/vim-slime", -- send command to external program!!
       {
         "tami5/sqlite.lua",
         otp = false,
+      },
+
+      {
+        "TimUntersberger/neogit",
+        config = function()
+          require("user.configs.neogit").config()
+        end,
+        requires = {
+          "nvim-lua/plenary.nvim",
+          "sindrets/diffview.nvim",
+        },
       },
 
       -- NOTE: for debug

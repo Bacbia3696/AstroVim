@@ -35,10 +35,4 @@ function! SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
-
-" git fugitive
-hi link diffRemoved DiffDelete
-hi link diffAdded DiffAdd
-hi link diffOldFile GitSignsDelete
-hi link diffNewFile GitSignsAdd
 ]]
