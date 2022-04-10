@@ -58,10 +58,11 @@ local plugins = {
       {
         "folke/tokyonight.nvim",
         config = function()
-          vim.g.tokyonight_italic_functions = true
-          vim.g.tokyonight_transparent = true
-          vim.g.tokyonight_transparent_sidebar = true
-          vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+          local g = vim.g
+          g.tokyonight_italic_functions = true
+          g.tokyonight_transparent = true
+          g.tokyonight_transparent_sidebar = true
+          g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
         end,
       },
 

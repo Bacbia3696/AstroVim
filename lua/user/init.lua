@@ -137,8 +137,12 @@ local config = {
     ["server-settings"] = {
       ["emmet_ls"] = {
         filetypes = { "typescriptreact", "javascriptreact", "html", "css" },
-        ["emmet.includeLanguages"] = {
-          javascript = "javascriptreact",
+      },
+      ["tsserver"] = {
+        init_options = {
+          preferences = {
+            importModuleSpecifierPreference = "non-relative",
+          },
         },
       },
     },
