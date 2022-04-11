@@ -7,7 +7,7 @@ function M.config()
   end
 
   vim.g.nvim_tree_git_hl = 1
-  vim.g.nvim_tree_highlight_opened_files = 1
+  vim.g.nvim_tree_highlight_opened_files = 2
   vim.g.nvim_tree_show_icons = {
     git = 0,
   }
@@ -41,12 +41,11 @@ function M.config()
     },
     diagnostics = {
       enable = true,
-      icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
-      },
+    },
+    git = {
+      enable = true,
+      ignore = false,
+      timeout = 400,
     },
     update_focused_file = {
       enable = true,

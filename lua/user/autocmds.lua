@@ -20,3 +20,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   command = [[ if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]],
   group = group,
 })
+
+
+-- colorscheme
+vim.api.nvim_create_autocmd("ColorScheme *", {
+  command = [[highlight LineNr guifg=grey ]]
+})

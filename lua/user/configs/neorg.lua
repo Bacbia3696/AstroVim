@@ -7,10 +7,17 @@ function M.config()
       ["core.norg.concealer"] = {},
       ["core.norg.journal"] = {},
       -- ["core.norg.completion"] = {},
-      ["core.norg.dirman"] = {},
+      ["core.norg.dirman"] = {
+        config = {
+          workspaces = {
+            work = "~/notes/work",
+            home = "~/notes/home",
+          },
+        },
+      },
       ["core.presenter"] = {
         config = {
-          zen_mode = "truezen",
+          zen_mode = "zen-mode",
         },
       },
       ["core.integrations.telescope"] = {}, -- Enable the telescope module

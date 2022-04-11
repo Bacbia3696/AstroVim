@@ -1,60 +1,34 @@
 local map = vim.keymap.set
-local function clear(a, b)
-  return pcall(vim.keymap.del, a, b)
-end
--- Del
--- clear("n", "<C-w>")
-clear("n", "<C-q>")
 
-clear("n", "<C-h>")
-clear("n", "<C-j>")
-clear("n", "<C-k>")
-clear("n", "<C-l>")
-clear("n", "<C-Up>")
-clear("n", "<C-Down>")
-clear("n", "<C-Left>")
-clear("n", "<C-Right>")
+-- Remap space as leader key
+map("", "<Space>", "<Nop>")
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-clear({ "n", "v" }, "<A-k>")
-clear({ "n", "v" }, "<A-j>")
-clear("v", "<")
-clear("v", ">")
-clear("v", "p")
+-- map("", ":", ";")
+map("", ";", ":")
 
-clear("n", "<leader>w")
-clear("n", "<leader>q")
-clear("n", "<leader>c")
-clear("n", "<leader>h")
-clear("n", "<leader>/")
-clear("v", "<leader>/")
-clear("v", "<leader>o")
-
-clear("n", "<S-l>")
-clear("n", "<S-h>")
-
-clear("x", "J")
-clear("x", "K")
-
-clear("n", "ca")
-clear("n", "gj")
-clear("n", "gk")
-
--- lsp and Telescope
+-- lsp
 map("n", "gr", "<cmd>Telescope lsp_references theme=dropdown<cr>")
 map("n", "gi", "<cmd>Telescope lsp_implementations theme=dropdown<cr>")
 map("n", "gt", "<cmd>Telescope lsp_type_definitions theme=dropdown<cr>")
 map("n", "gd", "<cmd>Telescope lsp_definitions theme=dropdown<cr>")
 map("n", "ga", "<cmd>Telescope lsp_code_actions theme=cursor<cr>")
+map("n", "<leader>rn", vim.lsp.buf.rename)
+map("n", "<C-k>", vim.lsp.buf.signature_help)
+map("n", "K", vim.lsp.buf.hover)
+-- map("n", "go", vim.diagnostic.open_float)
+map("n", "[d", vim.diagnostic.goto_prev)
+map("n", "]d", vim.diagnostic.goto_next)
+map("n", "<leader>li", "<cmd>LspInfo<cr>")
+map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>")
 
-map("n", "<leader>y", "<cmd>Telescope neoclip<cr>")
-map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
-
+-- format onsave
 map({ "i", "n" }, "<C-s>", "<esc><cmd>lua vim.lsp.buf.formatting_sync()<cr><cmd>up<CR>", { silent = true })
 map("", "<leader>q", "<cmd>qa<CR>")
 map("", "<C-q>", "<cmd>q<cr>")
--- map("", "<C-e>", "3<C-e>")
--- map("", "<C-y>", "3<C-y>")
 
+-- mapping in insert/command mode
 map("!", "<C-a>", "<Home>")
 map("!", "<C-e>", "<End>")
 map("!", "<C-p>", "<Up>")
@@ -64,33 +38,21 @@ map("!", "<C-f>", "<Right>")
 map("!", "<M-b>", "<S-Left>")
 map("!", "<M-f>", "<S-Right>")
 
-map("n", "<M-a>", "ggVG")
-map("n", "<C-w>>", "5<C-w>>")
-map("n", "<C-w><", "5<C-w><")
-
--- tab hotkey
+-- navigate vim tab
 map("", "<M-k>", "<cmd>tabn<cr>")
 map("", "<M-t>", "<cmd>tabnew<cr>")
 map("", "<M-j>", "<cmd>tabp<cr>")
 map("", "<M-k>", "<cmd>tabn<cr>")
-
--- map("", ":", ";")
-map("", ";", ":")
-map("n", "<C-l>", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>")
-
-map("n", "<leader><leader>", "<cmd>Telescope<cr>")
-
 -- navigate window
 for i = 1, 9, 1 do
   map({ "n", "i" }, "<M-" .. i .. ">", "<cmd>" .. i .. "wincmd w<cr>")
 end
 
+map("n", "<M-a>", "ggVG")
+map("n", "<C-w>>", "5<C-w>>")
+map("n", "<C-w><", "5<C-w><")
+
 map("n", "*", "<cmd>keepjumps normal! mi*`i<CR>")
-
-map("n", "<C-k>", vim.lsp.buf.signature_help)
-
-map("v", "-", "kojV")
-
 map("n", ",p", [["0p]])
 map("n", ",P", [["0P]])
 
@@ -100,6 +62,110 @@ map("i", "?", "?<c-g>u")
 map("i", ".", ".<c-g>u")
 map("i", "!", "!<c-g>u")
 
+-- plugin mapping
+map("n", "<leader><leader>", "<cmd>Telescope<cr>")
+map("n", "<leader>y", "<cmd>Telescope neoclip<cr>")
+map("n", "<leader>da", "<cmd>Telescope diagnostics<cr>")
+map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
+
 -- hop
 vim.keymap.set({ "n", "o", "x" }, "f", "<CMD>HopChar1MW<CR>")
 vim.keymap.set({ "n", "o", "x" }, "F", "<CMD>HopChar1<CR>")
+
+-- telescope
+
+map("n", "<leader>fw", function()
+  require("telescope.builtin").live_grep()
+end)
+map("n", "<leader>gt", function()
+  require("telescope.builtin").git_status()
+end)
+map("n", "<leader>gb", function()
+  require("telescope.builtin").git_branches()
+end)
+map("n", "<leader>gc", function()
+  require("telescope.builtin").git_commits()
+end)
+map("n", "<leader>ff", function()
+  require("telescope.builtin").find_files()
+end)
+map("n", "<leader>fb", function()
+  require("telescope.builtin").buffers()
+end)
+map("n", "<leader>fh", function()
+  require("telescope.builtin").help_tags()
+end)
+map("n", "<leader>fm", function()
+  require("telescope.builtin").marks()
+end)
+map("n", "<leader>fo", function()
+  require("telescope.builtin").oldfiles()
+end)
+map("n", "<leader>sb", function()
+  require("telescope.builtin").git_branches()
+end)
+map("n", "<leader>sh", function()
+  require("telescope.builtin").help_tags()
+end)
+map("n", "<leader>sm", function()
+  require("telescope.builtin").man_pages()
+end)
+map("n", "<leader>sn", function()
+  require("telescope").extensions.notify.notify()
+end)
+map("n", "<leader>sr", function()
+  require("telescope.builtin").registers()
+end)
+map("n", "<leader>sk", function()
+  require("telescope.builtin").keymaps()
+end)
+map("n", "<leader>sc", function()
+  require("telescope.builtin").commands()
+end)
+map("n", "<leader>ls", function()
+  require("telescope.builtin").lsp_document_symbols()
+end)
+map("n", "<leader>lR", function()
+  require("telescope.builtin").lsp_references()
+end)
+map("n", "<leader>lD", function()
+  require("telescope.builtin").diagnostics()
+end)
+
+-- toggleterm
+
+local _user_terminals = {}
+local function toggle_term_cmd(cmd)
+  if _user_terminals[cmd] == nil then
+    _user_terminals[cmd] = require("toggleterm.terminal").Terminal:new { cmd = cmd, hidden = true }
+  end
+  _user_terminals[cmd]:toggle()
+end
+map("n", "<leader>gg", function()
+  toggle_term_cmd("NVIM_LISTEN_ADDRESS=" .. vim.v.servername .. " lazygit")
+end)
+map("n", "<leader>tn", function()
+  toggle_term_cmd "node"
+end)
+map("n", "<leader>tu", function()
+  toggle_term_cmd "ncdu"
+end)
+map("n", "<leader>tt", function()
+  toggle_term_cmd "htop"
+end)
+map("n", "<leader>tp", function()
+  toggle_term_cmd "python"
+end)
+map("n", "<leader>tl", function()
+  toggle_term_cmd("NVIM_LISTEN_ADDRESS=" .. vim.v.servername .. " lazygit")
+end)
+map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>")
+map("n", "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>")
+map("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>")
+
+-- packer
+map("n", "<leader>pc", "<cmd>PackerCompile<cr>")
+map("n", "<leader>pi", "<cmd>PackerInstall<cr>")
+map("n", "<leader>ps", "<cmd>PackerSync<cr>")
+map("n", "<leader>pS", "<cmd>PackerStatus<cr>")
+map("n", "<leader>pu", "<cmd>PackerUpdate<cr>")

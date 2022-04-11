@@ -21,11 +21,10 @@ set.cindent = true
 vim.g["slime_target"] = "kitty"
 vim.g.indent_blankline_char = "▏"
 
+vim.api.nvim_create_user_command("Format", "execute 'lua vim.lsp.buf.formatting()'", {})
+
 vim.cmd "cnoreabbrev t Telescope"
 vim.cmd "cnoreabbrev n Neorg"
-vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
--- HACK: remove this hotfix latter
-vim.cmd [[ command! R execute ('lua vim.lsp.stop_client(vim.lsp.get_active_clients())') | sleep 100m | e ]]
 
 vim.cmd [[
 " print synstack group name

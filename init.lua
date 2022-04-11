@@ -15,7 +15,7 @@ local sources = {
   "core.options",
   "core.plugins",
   "core.autocmds",
-  "core.mappings",
+  -- "core.mappings",
   "configs.which-key-register",
 }
 

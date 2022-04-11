@@ -36,6 +36,7 @@ local config = {
       -- highlights.NeoTreeNormalNC = { bg = C.none }
       highlights.NvimTreeNormal = { bg = C.none }
       highlights.NvimTreeNormalNC = { bg = C.none }
+      highlights.NvimTreeSpecialFile = { fg = C.yellow, style = "bold,underline" }
 
       highlights.WinSeparator = { bg = C.none }
       highlights.CursorLineNr = { fg = C.gold, bg = C.none }
@@ -50,9 +51,13 @@ local config = {
 
       highlights.TSStrong = { fg = C.fg, style = "bold" }
       highlights.TSEmphasis = { fg = C.fg, style = "italic" }
-      highlights.TSUnderline = { fg = C.fg, style = "underline" }
+      highlights.TSUnderline = { fg = C.blue_2, style = "underline" }
+      highlights.TSTitle = { fg = C.black_1, bg = C.orange_2, style="bold,italic" }
+      highlights.TSPunctDelimiter = { fg = C.gold }
+      highlights.TSPunctSpecial = { fg = C.purple }
+      highlights.TSPunctBracket = { fg = C.blue }
 
-      highlights.MatchParen = { fg = C.red_3, bg = C.white, style = "bold,italic,reverse" }
+      highlights.MatchParen = { style = "bold,italic,reverse" }
       return highlights
     end,
   },
@@ -110,7 +115,7 @@ local config = {
         client.resolved_capabilities.document_formatting = false
       end
 
-      vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+      -- vim.api.nvim_create_user_command("Format", "execute 'lua vim.lsp.buf.formatting()'", {})
       lsp_highlight_document(client)
     end,
 
@@ -178,6 +183,9 @@ local config = {
         formatting.prettier,
         formatting.black,
         formatting.goimports,
+        formatting.shfmt.with {
+          filetypes = { "sh", "zsh", "bash", "dockerfile" },
+        },
         -- formatting.gofumpt,
         -- formatting.golines,
         formatting.stylua,
@@ -185,6 +193,7 @@ local config = {
         diagnostics.golangci_lint,
       },
       -- NOTE: You can remove this on attach function to disable format on save
+      ---@diagnostic disable-next-line: unused-local
       on_attach = function(client)
         -- if client.resolved_capabilities.document_formatting then
         --   vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"

@@ -13,16 +13,12 @@ local plugins = {
         otp = false,
       },
 
-      -- {
-      --   "TimUntersberger/neogit",
-      --   config = function()
-      --     require("user.configs.neogit").config()
-      --   end,
-      --   requires = {
-      --     "nvim-lua/plenary.nvim",
-      --     "sindrets/diffview.nvim",
-      --   },
-      -- },
+      {
+        "folke/zen-mode.nvim",
+        config = function()
+          require("user.configs.zen-mode").config()
+        end,
+      },
 
       -- NOTE: for debug
       "mfussenegger/nvim-dap",
@@ -76,16 +72,6 @@ local plugins = {
         end,
       },
 
-      -- Zen mode
-      {
-        "Pocco81/TrueZen.nvim",
-        config = function()
-          require("user.configs.true-zen").config()
-        end,
-      },
-
-      -- highlight text
-      "Pocco81/HighStr.nvim",
       -- show lightbulb when have code actions
       {
         "kosayoda/nvim-lightbulb",
