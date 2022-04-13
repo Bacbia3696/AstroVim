@@ -52,7 +52,7 @@ local config = {
       highlights.TSStrong = { fg = C.fg, style = "bold" }
       highlights.TSEmphasis = { fg = C.fg, style = "italic" }
       highlights.TSUnderline = { fg = C.blue_2, style = "underline" }
-      highlights.TSTitle = { fg = C.black_1, bg = C.orange_2, style="bold,italic" }
+      highlights.TSTitle = { fg = C.black_1, bg = C.orange_2, style = "bold,italic" }
       highlights.TSPunctDelimiter = { fg = C.gold }
       highlights.TSPunctSpecial = { fg = C.purple }
       highlights.TSPunctBracket = { fg = C.blue }
@@ -150,6 +150,18 @@ local config = {
           },
         },
       },
+      -- ["sqls"] = {
+      --   cmd = {
+      --     "/Users/dat.nguyen1/.local/share/nvim/lsp_servers/sqls/sqls",
+      --     "-config",
+      --     "/Users/dat.nguyen1/.config/sqls/config.yaml",
+      --   },
+      --   setup = {
+      --     on_attach = function(client, bufnr)
+      --       require("sqls").on_attach(client, bufnr)
+      --     end,
+      --   },
+      -- },
     },
   },
 
@@ -186,11 +198,13 @@ local config = {
         formatting.shfmt.with {
           filetypes = { "sh", "zsh", "bash", "dockerfile" },
         },
+        formatting.sqlfluff,
         -- formatting.gofumpt,
         -- formatting.golines,
         formatting.stylua,
         -- Set a linter
         diagnostics.golangci_lint,
+        diagnostics.sqlfluff,
       },
       -- NOTE: You can remove this on attach function to disable format on save
       ---@diagnostic disable-next-line: unused-local

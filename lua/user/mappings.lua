@@ -23,6 +23,13 @@ map("n", "]d", vim.diagnostic.goto_next)
 map("n", "<leader>li", "<cmd>LspInfo<cr>")
 map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>")
 
+-- use builtin
+-- map("n", "gr", vim.lsp.buf.references)
+-- map("n", "gi", vim.lsp.buf.implementation)
+-- map("n", "gd", vim.lsp.buf.definition)
+-- map("n", "gt", vim.lsp.buf.type_definition)
+-- map("n", "ga", vim.lsp.buf.code_action)
+
 -- format onsave
 map({ "i", "n" }, "<C-s>", "<esc><cmd>lua vim.lsp.buf.formatting_sync()<cr><cmd>up<CR>", { silent = true })
 map("", "<leader>q", "<cmd>qa<CR>")

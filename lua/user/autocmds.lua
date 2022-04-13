@@ -26,3 +26,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("ColorScheme *", {
   command = [[highlight LineNr guifg=grey ]]
 })
+
+-- sql
+vim.api.nvim_create_autocmd("FileType sql", {
+  command = [[set ts=4 | set sw=4]]
+})

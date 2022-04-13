@@ -27,6 +27,22 @@ local plugins = {
       "theHamsta/nvim-dap-virtual-text",
       "leoluz/nvim-dap-go",
 
+      "ellisonleao/glow.nvim",
+      "edluffy/hologram.nvim",
+
+      -- NOTE: LSP for sql
+      {
+        "nanotee/sqls.nvim",
+        config = function()
+          require("lspconfig").sqls.setup {
+            on_attach = function(client, bufnr)
+              client.resolved_capabilities.document_formatting = false
+              require("sqls").on_attach(client, bufnr)
+            end,
+          }
+        end,
+      },
+
       -- NOTE: better NEOVIM UI
       {
         "stevearc/dressing.nvim",
