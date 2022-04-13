@@ -20,6 +20,36 @@ local plugins = {
         end,
       },
 
+      -- NOTE: lua lsp
+      {
+        "folke/lua-dev.nvim",
+        config = function()
+          local luadev = require("lua-dev").setup {
+            -- add any options here, or leave empty to use the default settings
+            lspconfig = {
+              library = {
+                vimruntime = true, -- runtime path
+                types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+                plugins = true, -- installed opt or start plugins in packpath
+                -- you can also specify the list of plugins to make available as a workspace library
+                -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
+              },
+              runtime_path = false, -- enable this to get completion in require strings. Slow!
+              -- pass any additional options that will be merged in the final lsp config
+              lspconfig = {
+                -- cmd = {"lua-language-server"},
+                on_attach = function(client, bufnr)
+                  client.resolved_capabilities.document_formatting = false
+                end
+              },
+            },
+          }
+
+          local lspconfig = require "lspconfig"
+          lspconfig.sumneko_lua.setup(luadev)
+        end,
+      },
+
       -- NOTE: for debug
       "mfussenegger/nvim-dap",
       "mfussenegger/nvim-dap-python",
@@ -28,7 +58,6 @@ local plugins = {
       "leoluz/nvim-dap-go",
 
       "ellisonleao/glow.nvim",
-      "edluffy/hologram.nvim",
 
       -- NOTE: LSP for sql
       {
@@ -112,6 +141,15 @@ local plugins = {
       -- treesitter
       "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-textobjects",
+      {
+        "mfussenegger/nvim-ts-hint-textobject",
+        config = function()
+          vim.cmd [[
+            omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
+            vnoremap <silent> m :lua require('tsht').nodes()<CR>
+          ]]
+        end
+      },
 
       -- telescope extensions
       "nvim-telescope/telescope-dap.nvim",
@@ -154,7 +192,8 @@ local plugins = {
 
   -- All other entries override the setup() call for default plugins
   symbols_outline = {
-    width = 25,
+    width = 20,
+    auto_preview = false,
   },
   treesitter = function(cfg)
     return require("user.configs.treesitter").config(cfg)

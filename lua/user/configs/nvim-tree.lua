@@ -25,7 +25,10 @@ function M.config()
       mappings = {
         custom_only = false,
         list = {
-          -- user mappings go here
+          { key = { "<CR>", "<2-LeftMouse>" }, action = "edit" },
+          { key = "<C-e>", action = "" },
+          { key = "O", action = "edit_in_place" },
+          { key = "o", action = "edit_no_picker" },
         },
       },
     },

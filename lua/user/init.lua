@@ -7,7 +7,7 @@ local function lsp_highlight_document(client)
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]],
+    ]] ,
       false
     )
   end
@@ -52,7 +52,7 @@ local config = {
       highlights.TSStrong = { fg = C.fg, style = "bold" }
       highlights.TSEmphasis = { fg = C.fg, style = "italic" }
       highlights.TSUnderline = { fg = C.blue_2, style = "underline" }
-      highlights.TSTitle = { fg = C.black_1, bg = C.orange_2, style = "bold,italic" }
+      highlights.TSTitle = { fg = C.fg, style = "bold,italic" }
       highlights.TSPunctDelimiter = { fg = C.gold }
       highlights.TSPunctSpecial = { fg = C.purple }
       highlights.TSPunctBracket = { fg = C.blue }
@@ -103,19 +103,11 @@ local config = {
     -- end,
     ---@diagnostic disable-next-line: unused-local
     on_attach = function(client, bufnr)
-      if client.name == "tsserver" then
-        client.resolved_capabilities.document_formatting = false
-      elseif client.name == "jsonls" then
-        client.resolved_capabilities.document_formatting = false
-      elseif client.name == "html" then
-        client.resolved_capabilities.document_formatting = false
-      elseif client.name == "sumneko_lua" then
-        client.resolved_capabilities.document_formatting = false
-      elseif client.name == "gopls" then
+      if client.name == "gopls" then
         client.resolved_capabilities.document_formatting = false
       end
 
-      -- vim.api.nvim_create_user_command("Format", "execute 'lua vim.lsp.buf.formatting()'", {})
+      vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
       lsp_highlight_document(client)
     end,
 
@@ -201,7 +193,7 @@ local config = {
         formatting.sqlfluff,
         -- formatting.gofumpt,
         -- formatting.golines,
-        formatting.stylua,
+        -- formatting.stylua,
         -- Set a linter
         diagnostics.golangci_lint,
         diagnostics.sqlfluff,
