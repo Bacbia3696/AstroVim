@@ -3,22 +3,23 @@ local set = vim.opt
 set.list = true
 -- ↵,→,~,↷,↶,·,¬,⇨⋄,‸,⇥,➜,⟫,➪,➭,⚬,⮐
 set.listchars = { tab = "➪➤", trail = "⚬", eol = "¬", nbsp = "+", extends = "→", precedes = "←" }
-set.fillchars = { eob = " " }
 set.relativenumber = false
 set.confirm = true
+set.history = 1000 -- Number of commands to remember in a history table
 
 -- wrap line
 set.wrap = true
 set.showbreak = "↪ "
 set.cpo:append { n = true }
 
-set.winblend = 10
-set.pumblend = 10
+set.winblend = 0
+set.pumblend = 0
 set.timeoutlen = 10000
 -- set.smartindent=true
 set.cindent = true
 
 vim.g["slime_target"] = "kitty"
+
 vim.g.indent_blankline_char = "▏"
 
 vim.api.nvim_create_user_command("Format", "execute 'lua vim.lsp.buf.formatting()'", {})
@@ -36,6 +37,7 @@ function! SynStack()
 endfunc
 ]]
 
+-- DiffWithSaved
 vim.cmd [[
 function! s:DiffWithSaved()
   let filetype=&ft
@@ -45,4 +47,7 @@ function! s:DiffWithSaved()
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSaved call s:DiffWithSaved()
+" auto insert mode
+autocmd TermOpen * startinsert
+autocmd BufWinEnter,WinEnter term://* startinsert
 ]]

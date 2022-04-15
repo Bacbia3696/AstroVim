@@ -148,6 +148,7 @@ local function toggle_term_cmd(cmd)
   end
   _user_terminals[cmd]:toggle()
 end
+
 map("n", "<leader>gg", function()
   toggle_term_cmd("NVIM_LISTEN_ADDRESS=" .. vim.v.servername .. " lazygit")
 end)
@@ -176,3 +177,8 @@ map("n", "<leader>pi", "<cmd>PackerInstall<cr>")
 map("n", "<leader>ps", "<cmd>PackerSync<cr>")
 map("n", "<leader>pS", "<cmd>PackerStatus<cr>")
 map("n", "<leader>pu", "<cmd>PackerUpdate<cr>")
+
+map('t', '<C-q>', [[<C-\><C-n>]])
+map('t', '<M-1>', [[<cmd>1wincmd w<cr>]])
+map('t', '<M-2>', [[<cmd>2wincmd w<cr>]])
+map('t', '<M-3>', [[<cmd>3wincmd w<cr>]])

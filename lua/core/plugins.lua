@@ -20,6 +20,9 @@ if packer_status_ok then
     -- Popup API
     { "nvim-lua/popup.nvim" },
 
+    -- Highlight URLs
+    { "itchyny/vim-highlighturl" },
+
     -- Indent detection
     {
       "Darazaki/indent-o-matic",
@@ -82,13 +85,11 @@ if packer_status_ok then
     -- Better buffer closing
     {
       "moll/vim-bbye",
-      cmd = { "Bdelete", "Bwipeout" },
     },
 
     -- File explorer
     {
       "nvim-neo-tree/neo-tree.nvim",
-      branch = "v2.x",
       module = "neo-tree",
       cmd = "Neotree",
       requires = "MunifTanjim/nui.nvim",
@@ -188,6 +189,7 @@ if packer_status_ok then
         require("core.utils").add_user_cmp_source "buffer"
       end,
     },
+<<<<<<< HEAD
 
     -- Path completion source
     {
@@ -207,36 +209,44 @@ if packer_status_ok then
       end,
     },
 
-    -- Built-in LSP
-    {
-      "neovim/nvim-lspconfig",
-      module = "lspconfig",
-      opt = true,
-      setup = function()
-        require("core.utils").defer_plugin "nvim-lspconfig"
-      end,
-    },
-
     -- LSP manager
     {
       "williamboman/nvim-lsp-installer",
-      after = "nvim-lspconfig",
+      module = "nvim-lsp-installer",
+      cmd = {
+        "LspInstall",
+        "LspInstallInfo",
+        "LspPrintInstalled",
+        "LspRestart",
+        "LspStart",
+        "LspStop",
+        "LspUninstall",
+        "LspUninstallAll",
+    git = {
+      clone_timeout = 300,
+      subcommands = {
+        update = "pull --ff-only --progress --rebase=true",
+      },
+    },
+
+    -- Built-in LSP
+    {
+      "neovim/nvim-lspconfig",
+      tag = "v0.1.3",
+      event = "BufWinEnter",
       config = function()
-        require("configs.nvim-lsp-installer").config()
         require "configs.lsp"
       end,
     },
 
     -- LSP symbols
     {
-      "stevearc/aerial.nvim",
-      opt = true,
+      "simrat39/symbols-outline.nvim",
+      cmd = "SymbolsOutline",
       setup = function()
-        require("core.utils").defer_plugin "aerial.nvim"
+        require("configs.symbols-outline").setup()
       end,
-      config = function()
-        require("configs.aerial").config()
-      end,
+      disable = not config.enabled.symbols_outline,
     },
 
     -- Formatting and linting
@@ -274,10 +284,7 @@ if packer_status_ok then
     -- Git integration
     {
       "lewis6991/gitsigns.nvim",
-      opt = true,
-      setup = function()
-        require("core.utils").defer_plugin "gitsigns.nvim"
-      end,
+      event = { "BufRead", "BufNewFile" },
       config = function()
         require("configs.gitsigns").config()
       end,

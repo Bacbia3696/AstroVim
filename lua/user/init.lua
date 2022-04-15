@@ -42,7 +42,7 @@ local config = {
       highlights.CursorLineNr = { fg = C.gold, bg = C.none }
       highlights.LineNr = { fg = C.grey, bg = C.none }
 
-      highlights.LspReferenceText = { fg = C.none, bg = C.grey_7, style = "italic,bold" }
+      highlights.LspReferenceText = { fg = C.none, bg = C.grey_7, style = "italic" }
       highlights.LspReferenceRead = { fg = C.none, bg = C.grey_7 }
       highlights.LspReferenceWrite = { fg = C.none, bg = C.grey_7 }
 
@@ -52,12 +52,14 @@ local config = {
       highlights.TSStrong = { fg = C.fg, style = "bold" }
       highlights.TSEmphasis = { fg = C.fg, style = "italic" }
       highlights.TSUnderline = { fg = C.blue_2, style = "underline" }
-      highlights.TSTitle = { fg = C.fg, style = "bold,italic" }
+      highlights.TSTitle = { fg = C.orange, style = "bold,italic" }
       highlights.TSPunctDelimiter = { fg = C.gold }
       highlights.TSPunctSpecial = { fg = C.purple }
       highlights.TSPunctBracket = { fg = C.blue }
 
-      highlights.MatchParen = { style = "bold,italic,reverse" }
+      highlights.GitSignsCurrentLineBlame = { fg = C.cyan, style = "italic" }
+
+      highlights.MatchParen = { style = "bold,italic,strikethrough" }
       return highlights
     end,
   },
@@ -183,6 +185,8 @@ local config = {
     null_ls.setup {
       debug = false,
       sources = {
+        -- action from gitsigns
+        null_ls.builtins.code_actions.gitsigns,
         -- Set a formatter
         formatting.prettier,
         formatting.black,
@@ -214,7 +218,7 @@ local config = {
     require "user.options"
     require "user.mappings"
     require "user.autocmds"
-    require "user.configs"
+    require "user.dap_configs"
   end,
 }
 

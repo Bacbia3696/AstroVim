@@ -7,7 +7,10 @@ local plugins = {
       "tpope/vim-unimpaired", -- cool hotkey
       "tpope/vim-surround", -- select surround
       "metakirby5/codi.vim", -- interactive environment for coding
-      "jpalardy/vim-slime", -- send command to external program!!
+      {
+        "jpalardy/vim-slime", -- send command to external program!!
+        -- run = 'g ss pop',
+      },
       {
         "tami5/sqlite.lua",
         otp = false,
@@ -18,6 +21,15 @@ local plugins = {
         config = function()
           require("user.configs.zen-mode").config()
         end,
+      },
+
+      -- NOTE: show breachcrume like vs code
+      {
+        "SmiteshP/nvim-gps",
+        requires = "nvim-treesitter/nvim-treesitter",
+        config = function()
+          require('nvim-gps').setup({})
+        end
       },
 
       -- NOTE: lua lsp
@@ -142,6 +154,43 @@ local plugins = {
       "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-textobjects",
       {
+        "romgrk/nvim-treesitter-context",
+        config = function()
+          require 'treesitter-context'.setup {
+            enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+            throttle = false, -- Throttles plugin updates (may improve performance)
+            max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+            patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+              -- For all filetypes
+              -- Note that setting an entry here replaces all other patterns for this entry.
+              -- By setting the 'default' entry below, you can control which nodes you want to
+              -- appear in the context window.
+              default = {
+                'class',
+                'function',
+                'method',
+                'for',
+                'while',
+                -- 'if',
+                -- 'switch',
+                -- 'case',
+              },
+              -- Example for a specific filetype.
+              -- If a pattern is missing, *open a PR* so everyone can benefit.
+              --   rust = {
+              --       'impl_item',
+              --   },
+            },
+            exact_patterns = {
+              -- Example for a specific filetype with Lua patterns
+              -- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
+              -- exactly match "impl_item" only)
+              -- rust = true,
+            }
+          }
+        end
+      },
+      {
         "mfussenegger/nvim-ts-hint-textobject",
         config = function()
           vim.cmd [[
@@ -200,6 +249,11 @@ local plugins = {
   end,
   packer = {
     compile_path = vim.fn.stdpath "config" .. "/lua/packer_compiled.lua",
+    git = {
+      subcommands = {
+        update = "pull --progress --rebase=true",
+      },
+    },
   },
   indent_blankline = {
     show_current_context_start = true,
