@@ -27,10 +27,10 @@ function M.config(cfg)
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = "ss",
-        scope_incremental = "sk",
-        node_incremental = "ss",
-        node_decremental = "sj",
+        init_selection = "<cr>",
+        scope_incremental = "<cr>",
+        node_incremental = "<tab>",
+        node_decremental = "<s-tab>",
       },
     },
     indent = {

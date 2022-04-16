@@ -41,6 +41,8 @@ local config = {
       highlights.WinSeparator = { bg = C.none }
       highlights.CursorLineNr = { fg = C.gold, bg = C.none }
       highlights.LineNr = { fg = C.grey, bg = C.none }
+      highlights.CursorColumn = { fg = C.gold, bg = C.purple_1 }
+      highlights.MatchParen = { style = "bold,italic,strikethrough" }
 
       highlights.LspReferenceText = { fg = C.none, bg = C.grey_7, style = "italic" }
       highlights.LspReferenceRead = { fg = C.none, bg = C.grey_7 }
@@ -59,7 +61,7 @@ local config = {
 
       highlights.GitSignsCurrentLineBlame = { fg = C.cyan, style = "italic" }
 
-      highlights.MatchParen = { style = "bold,italic,strikethrough" }
+      highlights.NeorgLinkText = { fg = C.blue, style = "underline,italic" }
       return highlights
     end,
   },
@@ -88,14 +90,6 @@ local config = {
   -- Add paths for including more VS Code style snippets in luasnip
   luasnip = {
     vscode_snippet_paths = {},
-  },
-
-  -- Modify which-key registration
-  ["which-key"] = {
-    -- Add bindings to the normal mode <leader> mappings
-    register_n_leader = {
-      -- ["N"] = { "<cmd>tabnew<cr>", "New Buffer" },
-    },
   },
 
   -- Extend LSP configuration
@@ -135,7 +129,12 @@ local config = {
     -- Add overrides for LSP server settings, the keys are the name of the server
     ["server-settings"] = {
       ["emmet_ls"] = {
-        filetypes = { "typescriptreact", "javascriptreact", "html", "css" },
+        filetypes = { "typescriptreact", "javascriptreact", "html", "css", "sass" },
+        init_options = {
+          syntaxProfiles = {
+            html = "xhtml",
+          }
+        }
       },
       ["tsserver"] = {
         init_options = {
@@ -144,6 +143,12 @@ local config = {
           },
         },
       },
+      -- ["cssmodules_ls"] = {
+      --   init_options = {
+      --     camelCase = true,
+      --   },
+      --   filetypes = { "typescriptreact", "javascriptreact", "scss", "css", "sass", "javascript" },
+      -- }
       -- ["sqls"] = {
       --   cmd = {
       --     "/Users/dat.nguyen1/.local/share/nvim/lsp_servers/sqls/sqls",

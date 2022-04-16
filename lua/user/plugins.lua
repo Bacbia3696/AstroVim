@@ -23,6 +23,105 @@ local plugins = {
         end,
       },
 
+      {
+        'windwp/nvim-spectre',
+        config = function()
+          require('spectre').setup()
+          vim.cmd [[
+              nnoremap <leader>S <cmd>lua require('spectre').open()<CR>
+
+              "search current word
+              nnoremap <leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>
+              vnoremap <leader>s <cmd>lua require('spectre').open_visual()<CR>
+              "  search in current file
+              nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>
+          ]]
+        end,
+        requires = "nvim-lua/plenary.nvim",
+      },
+
+      -- code coverage for go
+      {
+        'rafaelsq/nvim-goc.lua',
+        config = function()
+          -- if set, when we switch between buffers, it will not split more than once. It will switch to the existing buffer instead
+          vim.opt.switchbuf = 'useopen'
+
+          local goc = require 'nvim-goc'
+          goc.setup({ verticalSplit = false })
+
+
+          vim.keymap.set('n', '<space>gcr', goc.Coverage, { silent = true })
+          vim.keymap.set('n', '<space>gcc', goc.ClearCoverage, { silent = true })
+          vim.keymap.set('n', '<space>gct', goc.CoverageFunc, { silent = true })
+          vim.keymap.set('n', ']a', goc.Alternate, { silent = true })
+          vim.keymap.set('n', '[a', goc.AlternateSplit, { silent = true })
+
+          local cf = function(testCurrentFunction)
+            local cb = function(path)
+              if path then
+                vim.cmd(":silent exec \"!xdg-open " .. path .. "\"")
+              end
+            end
+
+            if testCurrentFunction then
+              goc.CoverageFunc(nil, cb, 0)
+            else
+              goc.Coverage(nil, cb)
+            end
+          end
+
+          vim.keymap.set('n', '<space>gca', cf, { silent = true })
+          vim.keymap.set('n', '<space>gcb', function() cf(true) end, { silent = true })
+
+          -- default colors
+          -- vim.highlight.link('GocNormal', 'Comment')
+          -- vim.highlight.link('GocCovered', 'String')
+          -- vim.highlight.link('GocUncovered', 'Error')
+        end
+      },
+
+      {
+        "ahmedkhalf/project.nvim",
+        config = function()
+          require("project_nvim").setup {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+          }
+        end
+      },
+
+      -- scrollbar for neovim
+      -- {
+      --   'petertriho/nvim-scrollbar',
+      --   config = function()
+      --     require("scrollbar").setup({
+      --       handle = {
+      --         text = " ",
+      --         color = nil,
+      --         cterm = nil,
+      --         highlight = "CursorColumn",
+      --         hide_if_all_visible = true, -- Hides handle if all lines are visible
+      --       },
+      --     })
+      --   end
+      -- },
+      -- Config lsp as json file like coc.nvim
+      {
+        'tamago324/nlsp-settings.nvim',
+        config = function()
+          local nlspsettings = require("nlspsettings")
+          nlspsettings.setup({
+            config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+            local_settings_dir = ".nlsp-settings",
+            local_settings_root_markers = { '.git' },
+            append_default_schemas = true,
+            loader = 'json'
+          })
+        end
+      },
+
       -- NOTE: show breachcrume like vs code
       {
         "SmiteshP/nvim-gps",
@@ -146,50 +245,12 @@ local plugins = {
           "nvim-lua/plenary.nvim",
           "nvim-neorg/neorg-telescope",
           "Pocco81/TrueZen.nvim",
-          -- "john-cena/cool-neorg-plugin",
         },
       },
 
       -- treesitter
       "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-textobjects",
-      {
-        "romgrk/nvim-treesitter-context",
-        config = function()
-          require 'treesitter-context'.setup {
-            enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-            throttle = false, -- Throttles plugin updates (may improve performance)
-            max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-            patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-              -- For all filetypes
-              -- Note that setting an entry here replaces all other patterns for this entry.
-              -- By setting the 'default' entry below, you can control which nodes you want to
-              -- appear in the context window.
-              default = {
-                'class',
-                'function',
-                'method',
-                'for',
-                'while',
-                -- 'if',
-                -- 'switch',
-                -- 'case',
-              },
-              -- Example for a specific filetype.
-              -- If a pattern is missing, *open a PR* so everyone can benefit.
-              --   rust = {
-              --       'impl_item',
-              --   },
-            },
-            exact_patterns = {
-              -- Example for a specific filetype with Lua patterns
-              -- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
-              -- exactly match "impl_item" only)
-              -- rust = true,
-            }
-          }
-        end
-      },
       {
         "mfussenegger/nvim-ts-hint-textobject",
         config = function()
@@ -232,8 +293,12 @@ local plugins = {
       },
     }
 
-    -- remove unused plugins
+    -- change default config options
     plugins["max397574/better-escape.nvim"] = nil
+
+    plugins["nvim-telescope/telescope.nvim"].cmd = nil
+    plugins["nvim-telescope/telescope.nvim"].module = nil
+    plugins["neovim/nvim-lspconfig"].event = nil
 
     -- add the my_plugins table to the plugin table
     return vim.tbl_deep_extend("force", plugins, my_plugins)
@@ -282,5 +347,6 @@ require("telescope").load_extension "dap"
 require("telescope").load_extension "zoxide"
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension "luasnip"
+require('telescope').load_extension('projects')
 
 return plugins

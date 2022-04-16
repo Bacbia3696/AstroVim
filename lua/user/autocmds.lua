@@ -24,18 +24,22 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 -- colorscheme
 vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = {"*"},
+  pattern = { "*" },
   command = [[highlight LineNr guifg=grey ]]
 })
 
 -- sql
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = {"sql"},
+  pattern = { "sql" },
   command = [[set ts=4 | set sw=4]]
 })
 
--- HACK: jsonls
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = {"json"},
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = { "tsconfig.json" },
   command = "set ft=jsonc",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "neorg" },
+  command = "set concealcursor=nc | set conceallevel=2",
 })
