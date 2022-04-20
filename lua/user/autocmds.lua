@@ -25,7 +25,12 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- colorscheme
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = { "*" },
-  command = [[highlight LineNr guifg=grey ]]
+  command = [[highlight LineNr guifg=grey
+  highlight TSTag guifg=#40d9ff
+  highlight TSInclude guifg=#ff9640
+  highlight TSString guifg=#7bc99c
+  highlight TSVariable guifg=#d47d85
+  ]]
 })
 
 -- sql
@@ -37,6 +42,11 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("BufRead", {
   pattern = { "tsconfig.json" },
   command = "set ft=jsonc",
+})
+
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = { "lib*.d.ts" },
+  command = "ed ++ff=dos %",
 })
 
 vim.api.nvim_create_autocmd("FileType", {

@@ -11,6 +11,9 @@ set.history = 1000 -- Number of commands to remember in a history table
 set.wrap = true
 set.showbreak = "↪ "
 set.cpo:append { n = true }
+set.foldmethod = "indent"
+set.foldlevelstart = 10
+set.linebreak = true
 
 set.winblend = 0
 set.pumblend = 0
@@ -50,4 +53,17 @@ com! DiffSaved call s:DiffWithSaved()
 " auto insert mode
 autocmd TermOpen * startinsert
 autocmd BufWinEnter,WinEnter term://* startinsert
+com OR lua vim.lsp.buf.execute_command({command = "_typescript.organizeImports", arguments = {vim.fn.expand("%:p")}})
+]]
+
+vim.cmd [[
+function CenterPane()
+  lefta vnew
+  wincmd w
+  exec 'vertical resize '. string(&columns * 0.75)
+endfunction
+
+"https://stackoverflow.com/questions/2295410/how-to-prevent-the-cursor-from-moving-back-one-character-on-leaving-insert-mode
+autocmd InsertLeave * :normal! `^
+" set virtualedit=onemore
 ]]

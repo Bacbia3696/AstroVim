@@ -28,8 +28,8 @@ function M.config(cfg)
       enable = true,
       keymaps = {
         init_selection = "<cr>",
-        scope_incremental = "<cr>",
-        node_incremental = "<tab>",
+        scope_incremental = "<tab>",
+        node_incremental = "<cr>",
         node_decremental = "<s-tab>",
       },
     },

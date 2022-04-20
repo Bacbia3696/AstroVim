@@ -7,13 +7,15 @@ function M.config()
   end
 
   vim.g.nvim_tree_git_hl = 1
-  vim.g.nvim_tree_highlight_opened_files = 2
+  vim.g.nvim_tree_highlight_opened_files = 0
   vim.g.nvim_tree_show_icons = {
     git = 0,
+    folders = 1,
+    files = 1,
+    folder_arrows = 1,
   }
 
   nvimtree.setup(require("core.utils").user_plugin_opts("plugins.nvim-tree", {
-    update_cdw = true,
     view = {
       width = 30,
       height = 30,
@@ -32,6 +34,25 @@ function M.config()
         },
       },
     },
+    actions = {
+      use_system_clipboard = true,
+      change_dir = {
+        enable = false,
+        global = false,
+      },
+      open_file = {
+        quit_on_open = false,
+        resize_window = true,
+        window_picker = {
+          enable = true,
+          chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+          exclude = {
+            filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+            buftype = { "nofile", "terminal", "help" },
+          },
+        },
+      },
+    },
     renderer = {
       indent_markers = {
         enable = true,
@@ -40,6 +61,9 @@ function M.config()
           edge = "│ ",
           none = "  ",
         },
+      },
+      icons = {
+        webdev_colors = true,
       },
     },
     diagnostics = {

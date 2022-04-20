@@ -47,9 +47,13 @@ function M.config()
       },
     },
     -- callback where you can add custom code when the Zen window opens
-    on_open = function(win) end,
+    on_open = function(win)
+      vim.opt.list = false
+    end,
     -- callback where you can add custom code when the Zen window closes
-    on_close = function() end,
+    on_close = function()
+      vim.opt.list = true
+    end,
   }
 end
 

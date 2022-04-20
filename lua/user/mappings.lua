@@ -13,7 +13,7 @@ map("n", "gr", "<cmd>Telescope lsp_references theme=ivy<cr>")
 map("n", "gi", "<cmd>Telescope lsp_implementations theme=dropdown<cr>")
 map("n", "gt", "<cmd>Telescope lsp_type_definitions theme=dropdown<cr>")
 map("n", "gd", "<cmd>Telescope lsp_definitions theme=dropdown<cr>")
-map("n", "ga", "<cmd>Telescope lsp_code_actions theme=cursor<cr>")
+-- map("n", "ga", "<cmd>Telescope lsp_code_actions theme=cursor<cr>")
 map("n", "<leader>rn", vim.lsp.buf.rename)
 map("n", "<C-k>", vim.lsp.buf.signature_help)
 map("n", "K", vim.lsp.buf.hover)
@@ -23,12 +23,12 @@ map("n", "]d", vim.diagnostic.goto_next)
 map("n", "<leader>li", "<cmd>LspInfo<cr>")
 map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>")
 
--- use builtin
+-- use built-in
 -- map("n", "gr", vim.lsp.buf.references)
 -- map("n", "gi", vim.lsp.buf.implementation)
 -- map("n", "gd", vim.lsp.buf.definition)
 -- map("n", "gt", vim.lsp.buf.type_definition)
--- map("n", "ga", vim.lsp.buf.code_action)
+map("n", "ga", vim.lsp.buf.code_action)
 
 -- format onsave
 map({ "i", "n" }, "<C-s>", "<esc><cmd>lua vim.lsp.buf.formatting_sync()<cr><cmd>up<CR>", { silent = true })
@@ -70,7 +70,7 @@ map("i", ".", ".<c-g>u")
 map("i", "!", "!<c-g>u")
 
 -- plugin mapping
-map("n", "<leader><leader>", "<cmd>Telescope<cr>")
+map("n", "<leader><leader>", "<cmd>Telescope builtin<cr>")
 map("n", "<leader>y", "<cmd>Telescope neoclip<cr>")
 map("n", "<leader>da", "<cmd>Telescope diagnostics<cr>")
 map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
@@ -184,5 +184,5 @@ map('t', '<M-1>', [[<cmd>1wincmd w<cr>]])
 map('t', '<M-2>', [[<cmd>2wincmd w<cr>]])
 map('t', '<M-3>', [[<cmd>3wincmd w<cr>]])
 -- pbpaste > /tmp/file.html && htmltojsx /tmp/file.html | pbcopy
-map("n", "<cr>", [[:silent execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>]])
+map("n", "ss", [[:silent execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>]])
 map("n", "st", [[yat :silent execute '!pbpaste > /tmp/file.html && htmltojsx /tmp/file.html | pbcopy'<CR>]])

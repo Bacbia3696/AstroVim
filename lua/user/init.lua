@@ -103,6 +103,9 @@ local config = {
         client.resolved_capabilities.document_formatting = false
       end
 
+      if client.name == "cssmodules_ls" then
+        client.resolved_capabilities.goto_definition = false
+      end
       vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
       lsp_highlight_document(client)
     end,
@@ -191,7 +194,7 @@ local config = {
       debug = false,
       sources = {
         -- action from gitsigns
-        null_ls.builtins.code_actions.gitsigns,
+        -- null_ls.builtins.code_actions.gitsigns,
         -- Set a formatter
         formatting.prettier,
         formatting.black,

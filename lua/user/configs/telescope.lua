@@ -19,6 +19,7 @@ M.config = {
               vim.api.nvim_chan_send(term, d .. "\r\n")
             end
           end
+
           vim.fn.jobstart({
             "catimg",
             filepath, -- Terminal image viewer command
@@ -37,12 +38,8 @@ M.config = {
         "--hidden",
         "--files",
         ".",
-        "-g",
-        "!**/.git/**",
-        "-g",
-        "!**/node_modules/**",
-        "-g",
-        "!**/dist/**",
+        "-g=!**/{node_modules,dist,.git}/**",
+        "-g=!*.{gw,pb,validate}.go",
       },
     },
   },

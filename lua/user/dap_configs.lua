@@ -106,7 +106,7 @@ nnoremap <leader>dd :lua require('dapui').toggle()<CR>
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- TODO: better config this
+-- TODO: move this to other place
 local lspconfig = require 'lspconfig'
 local configs = require 'lspconfig.configs'
 if not configs.ls_emmet then

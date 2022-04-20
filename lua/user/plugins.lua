@@ -122,6 +122,10 @@ local plugins = {
         end
       },
 
+      {
+        "Pocco81/HighStr.nvim"
+      },
+
       -- NOTE: show breachcrume like vs code
       {
         "SmiteshP/nvim-gps",
@@ -168,7 +172,7 @@ local plugins = {
       "theHamsta/nvim-dap-virtual-text",
       "leoluz/nvim-dap-go",
 
-      "ellisonleao/glow.nvim",
+      -- "ellisonleao/glow.nvim",
 
       -- NOTE: LSP for sql
       {
