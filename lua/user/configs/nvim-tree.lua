@@ -6,7 +6,6 @@ function M.config()
     return
   end
 
-  vim.g.nvim_tree_indent_markers = 1
   vim.g.nvim_tree_git_hl = 1
   vim.g.nvim_tree_highlight_opened_files = 1
   vim.g.nvim_tree_show_icons = {
@@ -30,10 +29,23 @@ function M.config()
         },
       },
     },
+    renderer = {
+      indent_markers = {
+        enable = true,
+        icons = {
+          corner = "└ ",
+          edge = "│ ",
+          none = "  ",
+        },
+      },
+    },
     diagnostics = {
       enable = true,
       icons = {
-        hint = "",
+        hint = "",
+        info = "",
+        warning = "",
+        error = "",
       },
     },
     update_focused_file = {

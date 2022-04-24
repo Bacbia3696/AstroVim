@@ -70,7 +70,7 @@ local config = {
     ts_rainbow = true,
     ts_autotag = true,
     bufferline = false,
-    toggle_term = false,
+    toggle_term = true,
     dashboard = false,
     which_key = false,
   },

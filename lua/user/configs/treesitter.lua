@@ -23,7 +23,7 @@ function M.config(cfg)
   }
 
   local tp = {
-    ensure_installed = "maintained",
+    ensure_installed = {},
     incremental_selection = {
       enable = true,
       keymaps = {

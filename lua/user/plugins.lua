@@ -13,16 +13,16 @@ local plugins = {
         otp = false,
       },
 
-      {
-        "TimUntersberger/neogit",
-        config = function()
-          require("user.configs.neogit").config()
-        end,
-        requires = {
-          "nvim-lua/plenary.nvim",
-          "sindrets/diffview.nvim",
-        },
-      },
+      -- {
+      --   "TimUntersberger/neogit",
+      --   config = function()
+      --     require("user.configs.neogit").config()
+      --   end,
+      --   requires = {
+      --     "nvim-lua/plenary.nvim",
+      --     "sindrets/diffview.nvim",
+      --   },
+      -- },
 
       -- NOTE: for debug
       "mfussenegger/nvim-dap",
